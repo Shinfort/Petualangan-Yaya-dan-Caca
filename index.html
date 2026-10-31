@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Petualangan Yaya dan Caca - Mengenal Bagian Tanaman</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1e293b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Yaya & Caca">
+  <link rel="icon" type="image/jpeg" href="story_content/thumbnail.jpg">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f766e 100%);
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .card {
+      background: rgba(30, 41, 59, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      max-width: 520px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      text-align: center;
+      position: relative;
+    }
+    .thumbnail-wrapper {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 18px;
+      background: #0f172a;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+    .thumbnail-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .status-pill {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+    }
+    .status-dot.offline {
+      background: #f59e0b;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 800;
+      color: #fef08a;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      margin-bottom: 6px;
+    }
+    p.subtitle {
+      font-size: 14px;
+      color: #cbd5e1;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+    .btn-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    .btn:active {
+      transform: scale(0.98);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #e2e8f0;
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.14);
+    }
+    .btn-install {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: #ffffff;
+      display: none;
+    }
+    .progress-box {
+      display: none;
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: left;
+    }
+    .progress-bar-bg {
+      width: 100%;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      overflow: hidden;
+      margin: 8px 0;
+    }
+    .progress-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #10b981, #06b6d4);
+      transition: width 0.15s ease;
+    }
+    .progress-status {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+    .info-box {
+      background: rgba(15, 23, 42, 0.5);
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 12px;
+      color: #94a3b8;
+      text-align: left;
+      line-height: 1.5;
+    }
+    .info-box ul {
+      margin-left: 18px;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="thumbnail-wrapper">
+      <img src="story_content/thumbnail.jpg" alt="Petualangan Yaya dan Caca">
+      <div class="status-pill" id="networkPill">
+        <span class="status-dot" id="networkDot"></span>
+        <span id="networkText">Online</span>
+      </div>
+    </div>
+
+    <h1>Petualangan Yaya &amp; Caca</h1>
+    <p class="subtitle">Mengenal Bagian Tanaman • Game Edukasi Interaktif</p>
+
+    <div class="btn-container">
+      <a href="story.html" class="btn btn-primary" id="btnPlay">
+        <span>🎮</span> Mainkan Sekarang
+      </a>
+
+      <button type="button" class="btn btn-install" id="btnInstall">
+        <span>📲</span> Pasang Aplikasi di HP / Laptop
+      </button>
+
+      <button type="button" class="btn btn-secondary" id="btnDownloadOffline">
+        <span>📥</span> Unduh Mode Offline Lengkap
+      </button>
+    </div>
+
+    <div class="progress-box" id="progressBox">
+      <div class="progress-status">
+        <span id="progressLabel">Menyiapkan aset offline...</span>
+        <span id="progressPercent">0%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progressBar"></div>
+      </div>
+      <div class="progress-status">
+        <span id="progressFiles">0 / 0 file</span>
+        <span id="progressTip">Bisa ditutup saat selesai</span>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>💡 Tips Bermain:</strong>
+      <ul>
+        <li><strong>Di HP:</strong> Buka dalam posisi mendatar (Landscape) agar layar penuh &amp; lebih seru.</li>
+        <li><strong>Bebas Hambatan Jaringan:</strong> Game otomatis menyimpan data ke perangkat. Bila ingin bermain tanpa kuota / tanpa Wi-Fi sama sekali, tekan <em>Unduh Mode Offline Lengkap</em> sekali saja.</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Daftar semua aset game untuk mode offline lengkap
+    const ALL_ASSETS = [
+      "story.html",
+      "analytics-frame.html",
+      "meta.xml",
+      "html5/data/css/output.min.css",
+      "html5/data/js/5gIFvQQk4fG.js",
+      "html5/data/js/5i7dsCgMXLX.js",
+      "html5/data/js/5ldZHUHaXqS.js",
+      "html5/data/js/5m7LBaMQ7oc.js",
+      "html5/data/js/5oOFqZwUXdW.js",
+      "html5/data/js/5qgaDapfpBo.js",
+      "html5/data/js/5tlkf6MJcYg.js",
+      "html5/data/js/5uuUv8luLqD.js",
+      "html5/data/js/5x7ozlHXvqS.js",
+      "html5/data/js/5Xq9Vmx8uuW.js",
+      "html5/data/js/5Y1QeYytcBt.js",
+      "html5/data/js/5YMFZMHpIV6.js",
+      "html5/data/js/62MWGsY2OyO.js",
+      "html5/data/js/62wJoutq1VM.js",
+      "html5/data/js/6dcCtBvdtQQ.js",
+      "html5/data/js/6EFG6NBthJo.js",
+      "html5/data/js/6ezBr1QHqxW.js",
+      "html5/data/js/6I9nfyrvUJx.js",
+      "html5/data/js/6MnzA0TkK3D.js",
+      "html5/data/js/6nEfwqQfU8d.js",
+      "html5/data/js/6OEtbYsjWDZ.js",
+      "html5/data/js/6qZjDFMLiKL.js",
+      "html5/data/js/6UseijFtNAn.js",
+      "html5/data/js/6W8Ouy8sFnI.js",
+      "html5/data/js/6YHJd16Ylgi.js",
+      "html5/data/js/data.js",
+      "html5/data/js/frame.js",
+      "html5/data/js/paths.js",
+      "html5/lib/scripts/bootstrapper.min.js",
+      "html5/lib/scripts/frame.desktop.min.js",
+      "html5/lib/scripts/frame.mobile.min.js",
+      "html5/lib/scripts/slides.min.js",
+      "html5/lib/stylesheets/desktop.min.css",
+      "html5/lib/stylesheets/mobile.min.css",
+      "html5/lib/stylesheets/mobile-fonts/open-sans-bold.woff",
+      "html5/lib/stylesheets/mobile-fonts/open-sans-light.woff",
+      "html5/lib/stylesheets/mobile-fonts/open-sans-regular.woff",
+      "mobile/5dZTnaYoVty.gif",
+      "mobile/5e0zWjqbYMR_P_46_339_1810_394.png",
+      "mobile/5fn2Vk6gkfb_P_53_306_1843_510.png",
+      "mobile/5h3ETkJPSqf.png",
+      "mobile/5jZdHf4gAi3_P_219_93_1428_896.gif",
+      "mobile/5m7OKwn5THK.png",
+      "mobile/5mKHeBjXs24.gif",
+      "mobile/5oQv6sjNAKr_P_406_230_1190_805.png",
+      "mobile/5qQnOQBBUVk.gif",
+      "mobile/5ulu5Gi05xc_P_232_0_1400_1080.gif",
+      "mobile/5V8obDoLHmJ_P_43_343_1833_400.png",
+      "mobile/5vi7k4fGqJD.gif",
+      "mobile/5viEw3fcNSl.gif",
+      "mobile/5XPd0q5TDM4_P_63_263_1806_546.png",
+      "mobile/5yATnCmeu2l.gif",
+      "mobile/5yfjgniArEs.png",
+      "mobile/5yRP1ZDCfPF_P_113_76_1666_923.gif",
+      "mobile/5ytdLlzCpUN_P_76_357_1753_406.png",
+      "mobile/60DfDTUm41R.png",
+      "mobile/60RfTtiYEqd_P_379_65_1173_907.gif",
+      "mobile/62kP6wjs3bQ_P_586_140_785_778.gif",
+      "mobile/63jaGYv3BQS.gif",
+      "mobile/64IG3nfDyyt_P_239_63_1454_933.gif",
+      "mobile/66nvmk49755.gif",
+      "mobile/68AaPNaQ4ZG.png",
+      "mobile/68q3smGsVU5_P_-82_0_2116_1080.png",
+      "mobile/68rcD4Rubv1_P_96_273_1760_513.png",
+      "mobile/6aLDRwA6gYS.gif",
+      "mobile/6aQfvb6ixe1_P_676_62_640_1017.gif",
+      "mobile/6bm1UZbyxhl.gif",
+      "mobile/6CKZSBPQLJ5.png",
+      "mobile/6cze1ddqwM4.gif",
+      "mobile/6dCepp9dZPi_P_59_39_1841_969.gif",
+      "mobile/6dSjpjHy178.gif",
+      "mobile/6dz2PoaSpwC_P_236_396_1457_318.png",
+      "mobile/6dz2PoaSpwC_P_236_46_1457_315.png",
+      "mobile/6dz2PoaSpwC_P_236_715_1457_318.png",
+      "mobile/6EIDMXasNhH_P_560_59_894_937.gif",
+      "mobile/6gopaYspChu.gif",
+      "mobile/6GwNaAIFw9O.png",
+      "mobile/6hdWoAEGZaG_P_0_125_734_232.gif",
+      "mobile/6J7kyb8nsR5_P_1240_83_656_213.png",
+      "mobile/6J7kyb8nsR5_P_1253_747_651_245.png",
+      "mobile/6J7kyb8nsR5_P_16_84_656_213.png",
+      "mobile/6J7kyb8nsR5_P_7_778_656_213.png",
+      "mobile/6kDSJfiCWHh_P_259_106_1397_780.gif",
+      "mobile/6kUiaQfYATs_P_18_76_691_265.gif",
+      "mobile/6LlhqfHlrJI_P_157_237_1656_565.png",
+      "mobile/6LyiekAb4aD_70.jpg",
+      "mobile/6m4MRvQvPyW.png",
+      "mobile/6NSBBBJGVte_P_380_0_1123_1080.png",
+      "mobile/6nWwRvvtvQg.gif",
+      "mobile/6onAjznUQD4.gif",
+      "mobile/6qJhgMPSb44.gif",
+      "mobile/6qqIQAnlfbN.png",
+      "mobile/6RH9a03xMaZ.gif",
+      "mobile/6RXLxu3pN7G.png",
+      "mobile/6T1oAKMqQS0.gif",
+      "mobile/6UfOy9Y1zTd.gif",
+      "mobile/6W3VsHqDUBX_P_326_0_1237_1080.gif",
+      "mobile/6WifmqNcrwQ_P_23_333_1876_413.png",
+      "mobile/6XAIHxA3kSy.png",
+      "mobile/6Yk7Wn3lPve.png",
+      "mobile/6Zg4dEo34EJ_P_293_36_1453_342.png",
+      "mobile/6Zg4dEo34EJ_P_293_373_1453_337.png",
+      "mobile/6Zg4dEo34EJ_P_293_701_1453_354.png",
+      "mobile/6ZiMY1I7b5y.gif",
+      "story_content/5bj97w1PbPR_44100_56_0.mp3",
+      "story_content/5bsXWSCYWvG_captions.js",
+      "story_content/5fgzIJXRyxv_captions.js",
+      "story_content/5g1V1xZoVQa_captions.js",
+      "story_content/5geFwdSVWJG_44100_56_0.mp3",
+      "story_content/5hndPUftrDI_44100_56_0.mp3",
+      "story_content/5j63hmfjryT_captions.js",
+      "story_content/5jp2N4abOAG_44100_56_0.mp3",
+      "story_content/5mkgDCLw8SU_captions.js",
+      "story_content/5mUo6rkdp2g_44100_56_0.mp3",
+      "story_content/5n4DvSA04SM_44100_56_0.mp3",
+      "story_content/5nPxhGO9Z0Y_captions.js",
+      "story_content/5rYoxPSQuU1_44100_56_0.mp3",
+      "story_content/5sASeIQ0nCu_captions.js",
+      "story_content/5sPJNTpmW3Z_44100_56_0.mp3",
+      "story_content/5VfKikkw3Aj_captions.js",
+      "story_content/5wFgZ4XGW3l_captions.js",
+      "story_content/5XUt14md0H0_44100_56_0.mp3",
+      "story_content/5Y47Fnt40ql_captions.js",
+      "story_content/5y5ca7QdggY_captions.js",
+      "story_content/5yLINqYl9Qs_captions.js",
+      "story_content/5YmP53Q4YGN_44100_56_0.mp3",
+      "story_content/61reQnmZf9S_captions.js",
+      "story_content/63kLFQJUFco_44100_56_0.mp3",
+      "story_content/647bHYp64HA_captions.js",
+      "story_content/64rzDwAdJZ6_44100_56_0.mp3",
+      "story_content/6f2SpWAyXAj_44100_56_0.mp3",
+      "story_content/6FhnvyRyIvg_44100_56_0.mp3",
+      "story_content/6G9S5Sobeet_captions.js",
+      "story_content/6IMe7Ocurcd_44100_56_0.mp3",
+      "story_content/6kbx0yX7Y9n_captions.js",
+      "story_content/6lkqnNOtloK_captions.js",
+      "story_content/6MIjpV8ry7Q_44100_56_0.mp3",
+      "story_content/6QyIDszCBq3_captions.js",
+      "story_content/6WoLtJIbrhN_44100_56_0.mp3",
+      "story_content/thumbnail.jpg",
+      "story_content/triggers.js",
+      "story_content/user.js"
+    ];
+
+    // Registrasi Service Worker
+    let swRegistration = null;
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then((reg) => {
+            swRegistration = reg;
+            console.log('Service Worker terdaftar:', reg.scope);
+          })
+          .catch((err) => {
+            console.warn('Registrasi SW gagal:', err);
+          });
+      });
+
+      navigator.serviceWorker.addEventListener('message', (event) => {
+        if (!event.data) return;
+        if (event.data.action === 'PRECACHE_PROGRESS') {
+          const { completed, total, percent } = event.data;
+          document.getElementById('progressBox').style.display = 'block';
+          document.getElementById('progressBar').style.width = percent + '%';
+          document.getElementById('progressPercent').textContent = percent + '%';
+          document.getElementById('progressFiles').textContent = `${completed} / ${total} file`;
+          document.getElementById('progressLabel').textContent = 'Mengunduh materi game...';
+        } else if (event.data.action === 'PRECACHE_COMPLETE') {
+          document.getElementById('progressBar').style.width = '100%';
+          document.getElementById('progressPercent').textContent = '100%';
+          document.getElementById('progressLabel').textContent = '✅ Siap dimainkan offline 100%!';
+          document.getElementById('progressTip').textContent = 'Semua materi telah tersimpan di perangkat.';
+          document.getElementById('btnDownloadOffline').innerHTML = '<span>✅</span> Mode Offline Siap';
+          document.getElementById('btnDownloadOffline').style.borderColor = '#10b981';
+          document.getElementById('btnDownloadOffline').style.color = '#10b981';
+        }
+      });
+    }
+
+    // Penanganan Install Prompt PWA
+    let deferredPrompt = null;
+    const btnInstall = document.getElementById('btnInstall');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      btnInstall.style.display = 'flex';
+    });
+
+    btnInstall.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          btnInstall.style.display = 'none';
+        }
+        deferredPrompt = null;
+      }
+    });
+
+    window.addEventListener('appinstalled', () => {
+      btnInstall.style.display = 'none';
+      console.log('Aplikasi berhasil dipasang.');
+    });
+
+    // Tombol Unduh Offline Lengkap
+    document.getElementById('btnDownloadOffline').addEventListener('click', () => {
+      if (!navigator.serviceWorker || !navigator.serviceWorker.controller) {
+        if (navigator.serviceWorker && swRegistration && swRegistration.active) {
+          swRegistration.active.postMessage({ action: 'PRECACHE_ALL', assets: ALL_ASSETS });
+          document.getElementById('progressBox').style.display = 'block';
+          document.getElementById('progressLabel').textContent = 'Memulai pengunduhan...';
+          return;
+        }
+        alert('Fitur offline siap saat halaman dibuka melalui server web / HTTPS (GitHub Pages).');
+        return;
+      }
+      document.getElementById('progressBox').style.display = 'block';
+      document.getElementById('progressLabel').textContent = 'Memulai pengunduhan...';
+      navigator.serviceWorker.controller.postMessage({
+        action: 'PRECACHE_ALL',
+        assets: ALL_ASSETS
+      });
+    });
+
+    // Deteksi Status Jaringan
+    function updateOnlineStatus() {
+      const isOnline = navigator.onLine;
+      const dot = document.getElementById('networkDot');
+      const text = document.getElementById('networkText');
+      if (isOnline) {
+        dot.className = 'status-dot';
+        text.textContent = 'Online';
+      } else {
+        dot.className = 'status-dot offline';
+        text.textContent = 'Offline (Bebas Internet)';
+      }
+    }
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    updateOnlineStatus();
+  </script>
+</body>
+</html>
+
