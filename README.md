@@ -1,10 +1,10 @@
 # Petualangan Yaya dan Caca: Mengenal Bagian Tanaman
 
 Game edukasi interaktif berbasis HTML5 / Web App yang dirancang untuk pembelajaran anak-anak mengenal bagian-bagian tanaman.
+---
 Dibuat oleh: Charol fioni ramadhansya & Yayang Zahra Salsabila
 TK PERTIWI KOTA MEDAN 
 ---
-
 ## 📱 Cara Memainkan di HP (Android & iOS)
 
 ### 1. Membuka di Browser HP
@@ -27,7 +27,7 @@ TK PERTIWI KOTA MEDAN
 * Klik ikon install di kolom alamat (URL bar) untuk memasang game sebagai aplikasi desktop laptop.
 
 ### Pilihan 2: Secara Offline Langsung dari Laptop (Tanpa Internet)
-* Klik dua kali file `Mainkan_di_Laptop.bat`.
+* Klik dua kali file `Play.bat`.
 * Browser laptop Anda akan otomatis membuka game di `http://localhost:8000` dan siap dimainkan secara offline 100%!
 
 ---
