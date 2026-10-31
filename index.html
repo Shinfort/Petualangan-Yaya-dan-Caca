@@ -229,8 +229,11 @@
   </div>
 
   <script>
-    // Daftar semua aset game untuk mode offline lengkap
-    const ALL_ASSETS = [
+    // Daftar aset game — diurutkan: file kecil (JS/CSS/MP3/PNG) lebih dulu, GIF besar di akhir
+    // Ini mencegah file GIF besar memblokir progress unduhan
+
+    // Aset kecil: JS, CSS, font, MP3, caption
+    const SMALL_ASSETS = [
       "story.html",
       "analytics-frame.html",
       "meta.xml",
@@ -272,73 +275,6 @@
       "html5/lib/stylesheets/mobile-fonts/open-sans-bold.woff",
       "html5/lib/stylesheets/mobile-fonts/open-sans-light.woff",
       "html5/lib/stylesheets/mobile-fonts/open-sans-regular.woff",
-      "mobile/5dZTnaYoVty.gif",
-      "mobile/5e0zWjqbYMR_P_46_339_1810_394.png",
-      "mobile/5fn2Vk6gkfb_P_53_306_1843_510.png",
-      "mobile/5h3ETkJPSqf.png",
-      "mobile/5jZdHf4gAi3_P_219_93_1428_896.gif",
-      "mobile/5m7OKwn5THK.png",
-      "mobile/5mKHeBjXs24.gif",
-      "mobile/5oQv6sjNAKr_P_406_230_1190_805.png",
-      "mobile/5qQnOQBBUVk.gif",
-      "mobile/5ulu5Gi05xc_P_232_0_1400_1080.gif",
-      "mobile/5V8obDoLHmJ_P_43_343_1833_400.png",
-      "mobile/5vi7k4fGqJD.gif",
-      "mobile/5viEw3fcNSl.gif",
-      "mobile/5XPd0q5TDM4_P_63_263_1806_546.png",
-      "mobile/5yATnCmeu2l.gif",
-      "mobile/5yfjgniArEs.png",
-      "mobile/5yRP1ZDCfPF_P_113_76_1666_923.gif",
-      "mobile/5ytdLlzCpUN_P_76_357_1753_406.png",
-      "mobile/60DfDTUm41R.png",
-      "mobile/60RfTtiYEqd_P_379_65_1173_907.gif",
-      "mobile/62kP6wjs3bQ_P_586_140_785_778.gif",
-      "mobile/63jaGYv3BQS.gif",
-      "mobile/64IG3nfDyyt_P_239_63_1454_933.gif",
-      "mobile/66nvmk49755.gif",
-      "mobile/68AaPNaQ4ZG.png",
-      "mobile/68q3smGsVU5_P_-82_0_2116_1080.png",
-      "mobile/68rcD4Rubv1_P_96_273_1760_513.png",
-      "mobile/6aLDRwA6gYS.gif",
-      "mobile/6aQfvb6ixe1_P_676_62_640_1017.gif",
-      "mobile/6bm1UZbyxhl.gif",
-      "mobile/6CKZSBPQLJ5.png",
-      "mobile/6cze1ddqwM4.gif",
-      "mobile/6dCepp9dZPi_P_59_39_1841_969.gif",
-      "mobile/6dSjpjHy178.gif",
-      "mobile/6dz2PoaSpwC_P_236_396_1457_318.png",
-      "mobile/6dz2PoaSpwC_P_236_46_1457_315.png",
-      "mobile/6dz2PoaSpwC_P_236_715_1457_318.png",
-      "mobile/6EIDMXasNhH_P_560_59_894_937.gif",
-      "mobile/6gopaYspChu.gif",
-      "mobile/6GwNaAIFw9O.png",
-      "mobile/6hdWoAEGZaG_P_0_125_734_232.gif",
-      "mobile/6J7kyb8nsR5_P_1240_83_656_213.png",
-      "mobile/6J7kyb8nsR5_P_1253_747_651_245.png",
-      "mobile/6J7kyb8nsR5_P_16_84_656_213.png",
-      "mobile/6J7kyb8nsR5_P_7_778_656_213.png",
-      "mobile/6kDSJfiCWHh_P_259_106_1397_780.gif",
-      "mobile/6kUiaQfYATs_P_18_76_691_265.gif",
-      "mobile/6LlhqfHlrJI_P_157_237_1656_565.png",
-      "mobile/6LyiekAb4aD_70.jpg",
-      "mobile/6m4MRvQvPyW.png",
-      "mobile/6NSBBBJGVte_P_380_0_1123_1080.png",
-      "mobile/6nWwRvvtvQg.gif",
-      "mobile/6onAjznUQD4.gif",
-      "mobile/6qJhgMPSb44.gif",
-      "mobile/6qqIQAnlfbN.png",
-      "mobile/6RH9a03xMaZ.gif",
-      "mobile/6RXLxu3pN7G.png",
-      "mobile/6T1oAKMqQS0.gif",
-      "mobile/6UfOy9Y1zTd.gif",
-      "mobile/6W3VsHqDUBX_P_326_0_1237_1080.gif",
-      "mobile/6WifmqNcrwQ_P_23_333_1876_413.png",
-      "mobile/6XAIHxA3kSy.png",
-      "mobile/6Yk7Wn3lPve.png",
-      "mobile/6Zg4dEo34EJ_P_293_36_1453_342.png",
-      "mobile/6Zg4dEo34EJ_P_293_373_1453_337.png",
-      "mobile/6Zg4dEo34EJ_P_293_701_1453_354.png",
-      "mobile/6ZiMY1I7b5y.gif",
       "story_content/5bj97w1PbPR_44100_56_0.mp3",
       "story_content/5bsXWSCYWvG_captions.js",
       "story_content/5fgzIJXRyxv_captions.js",
@@ -379,6 +315,88 @@
       "story_content/user.js"
     ];
 
+    // Aset PNG (sedang)
+    const PNG_ASSETS = [
+      "mobile/5e0zWjqbYMR_P_46_339_1810_394.png",
+      "mobile/5fn2Vk6gkfb_P_53_306_1843_510.png",
+      "mobile/5h3ETkJPSqf.png",
+      "mobile/5m7OKwn5THK.png",
+      "mobile/5oQv6sjNAKr_P_406_230_1190_805.png",
+      "mobile/5V8obDoLHmJ_P_43_343_1833_400.png",
+      "mobile/5XPd0q5TDM4_P_63_263_1806_546.png",
+      "mobile/5yfjgniArEs.png",
+      "mobile/5ytdLlzCpUN_P_76_357_1753_406.png",
+      "mobile/60DfDTUm41R.png",
+      "mobile/68AaPNaQ4ZG.png",
+      "mobile/68q3smGsVU5_P_-82_0_2116_1080.png",
+      "mobile/68rcD4Rubv1_P_96_273_1760_513.png",
+      "mobile/6CKZSBPQLJ5.png",
+      "mobile/6GwNaAIFw9O.png",
+      "mobile/6J7kyb8nsR5_P_1240_83_656_213.png",
+      "mobile/6J7kyb8nsR5_P_1253_747_651_245.png",
+      "mobile/6J7kyb8nsR5_P_16_84_656_213.png",
+      "mobile/6J7kyb8nsR5_P_7_778_656_213.png",
+      "mobile/6LlhqfHlrJI_P_157_237_1656_565.png",
+      "mobile/6LyiekAb4aD_70.jpg",
+      "mobile/6m4MRvQvPyW.png",
+      "mobile/6NSBBBJGVte_P_380_0_1123_1080.png",
+      "mobile/6qqIQAnlfbN.png",
+      "mobile/6RXLxu3pN7G.png",
+      "mobile/6WifmqNcrwQ_P_23_333_1876_413.png",
+      "mobile/6XAIHxA3kSy.png",
+      "mobile/6Yk7Wn3lPve.png",
+      "mobile/6Zg4dEo34EJ_P_293_36_1453_342.png",
+      "mobile/6Zg4dEo34EJ_P_293_373_1453_337.png",
+      "mobile/6Zg4dEo34EJ_P_293_701_1453_354.png",
+      "mobile/6dz2PoaSpwC_P_236_396_1457_318.png",
+      "mobile/6dz2PoaSpwC_P_236_46_1457_315.png",
+      "mobile/6dz2PoaSpwC_P_236_715_1457_318.png"
+    ];
+
+    // Aset GIF besar — diunduh terakhir, satu per satu
+    const LARGE_GIF_ASSETS = [
+      "mobile/6hdWoAEGZaG_P_0_125_734_232.gif",
+      "mobile/6aQfvb6ixe1_P_676_62_640_1017.gif",
+      "mobile/6kUiaQfYATs_P_18_76_691_265.gif",
+      "mobile/6EIDMXasNhH_P_560_59_894_937.gif",
+      "mobile/6W3VsHqDUBX_P_326_0_1237_1080.gif",
+      "mobile/60RfTtiYEqd_P_379_65_1173_907.gif",
+      "mobile/62kP6wjs3bQ_P_586_140_785_778.gif",
+      "mobile/6kDSJfiCWHh_P_259_106_1397_780.gif",
+      "mobile/5jZdHf4gAi3_P_219_93_1428_896.gif",
+      "mobile/5yATnCmeu2l.gif",
+      "mobile/6qJhgMPSb44.gif",
+      "mobile/63jaGYv3BQS.gif",
+      "mobile/5dZTnaYoVty.gif",
+      "mobile/5ulu5Gi05xc_P_232_0_1400_1080.gif",
+      "mobile/64IG3nfDyyt_P_239_63_1454_933.gif",
+      "mobile/5mKHeBjXs24.gif",
+      "mobile/6aLDRwA6gYS.gif",
+      "mobile/5viEw3fcNSl.gif",
+      "mobile/6dCepp9dZPi_P_59_39_1841_969.gif",
+      "mobile/6RH9a03xMaZ.gif",
+      "mobile/6UfOy9Y1zTd.gif",
+      "mobile/6T1oAKMqQS0.gif",
+      "mobile/6onAjznUQD4.gif",
+      "mobile/5yRP1ZDCfPF_P_113_76_1666_923.gif",
+      "mobile/6ZiMY1I7b5y.gif",
+      "mobile/6bm1UZbyxhl.gif",
+      "mobile/5vi7k4fGqJD.gif",
+      "mobile/6dSjpjHy178.gif",
+      "mobile/66nvmk49755.gif",
+      "mobile/6nWwRvvtvQg.gif",
+      "mobile/6cze1ddqwM4.gif",
+      "mobile/6gopaYspChu.gif",
+      "mobile/5qQnOQBBUVk.gif"
+    ];
+
+    // Gabungkan semua aset: kecil dulu, lalu PNG, lalu GIF besar
+    const ALL_ASSETS = [...SMALL_ASSETS, ...PNG_ASSETS, ...LARGE_GIF_ASSETS];
+
+    // Simpan daftar file gagal untuk retry
+    let lastFailedUrls = [];
+    let isDownloading = false;
+
     // Registrasi Service Worker
     let swRegistration = null;
     if ('serviceWorker' in navigator) {
@@ -395,14 +413,24 @@
 
       navigator.serviceWorker.addEventListener('message', (event) => {
         if (!event.data) return;
+
         if (event.data.action === 'PRECACHE_PROGRESS') {
-          const { completed, total, percent } = event.data;
+          const { completed, total, percent, failed } = event.data;
           document.getElementById('progressBox').style.display = 'block';
           document.getElementById('progressBar').style.width = percent + '%';
           document.getElementById('progressPercent').textContent = percent + '%';
           document.getElementById('progressFiles').textContent = `${completed} / ${total} file`;
-          document.getElementById('progressLabel').textContent = 'Mengunduh materi game...';
-        } else if (event.data.action === 'PRECACHE_COMPLETE') {
+
+          if (failed && failed > 0) {
+            document.getElementById('progressLabel').textContent = `Mengunduh materi game... (${failed} gagal, akan dicoba ulang)`;
+          } else {
+            document.getElementById('progressLabel').textContent = 'Mengunduh materi game...';
+          }
+        }
+
+        else if (event.data.action === 'PRECACHE_COMPLETE') {
+          isDownloading = false;
+          lastFailedUrls = [];
           document.getElementById('progressBar').style.width = '100%';
           document.getElementById('progressPercent').textContent = '100%';
           document.getElementById('progressLabel').textContent = '✅ Siap dimainkan offline 100%!';
@@ -410,6 +438,20 @@
           document.getElementById('btnDownloadOffline').innerHTML = '<span>✅</span> Mode Offline Siap';
           document.getElementById('btnDownloadOffline').style.borderColor = '#10b981';
           document.getElementById('btnDownloadOffline').style.color = '#10b981';
+        }
+
+        else if (event.data.action === 'PRECACHE_COMPLETE_WITH_ERRORS') {
+          isDownloading = false;
+          const { failed, failedUrls } = event.data;
+          lastFailedUrls = failedUrls || [];
+          document.getElementById('progressBar').style.width = '100%';
+          document.getElementById('progressBar').style.background = 'linear-gradient(90deg, #f59e0b, #ef4444)';
+          document.getElementById('progressPercent').textContent = `${failed} gagal`;
+          document.getElementById('progressLabel').textContent = `⚠️ ${failed} file gagal diunduh`;
+          document.getElementById('progressTip').textContent = 'Tekan tombol di bawah untuk coba ulang.';
+          document.getElementById('btnDownloadOffline').innerHTML = '<span>🔄</span> Coba Unduh Ulang (' + failed + ' file gagal)';
+          document.getElementById('btnDownloadOffline').style.borderColor = '#f59e0b';
+          document.getElementById('btnDownloadOffline').style.color = '#f59e0b';
         }
       });
     }
@@ -440,24 +482,53 @@
       console.log('Aplikasi berhasil dipasang.');
     });
 
+    // Fungsi kirim pesan ke SW
+    function sendToSW(message) {
+      if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage(message);
+        return true;
+      }
+      if (navigator.serviceWorker && swRegistration && swRegistration.active) {
+        swRegistration.active.postMessage(message);
+        return true;
+      }
+      return false;
+    }
+
     // Tombol Unduh Offline Lengkap
     document.getElementById('btnDownloadOffline').addEventListener('click', () => {
-      if (!navigator.serviceWorker || !navigator.serviceWorker.controller) {
-        if (navigator.serviceWorker && swRegistration && swRegistration.active) {
-          swRegistration.active.postMessage({ action: 'PRECACHE_ALL', assets: ALL_ASSETS });
-          document.getElementById('progressBox').style.display = 'block';
-          document.getElementById('progressLabel').textContent = 'Memulai pengunduhan...';
-          return;
+      if (isDownloading) return; // Cegah double-click
+
+      // Jika ada file gagal sebelumnya, retry hanya file yang gagal
+      if (lastFailedUrls.length > 0) {
+        isDownloading = true;
+        document.getElementById('progressBox').style.display = 'block';
+        document.getElementById('progressBar').style.background = 'linear-gradient(90deg, #10b981, #06b6d4)';
+        document.getElementById('progressBar').style.width = '0%';
+        document.getElementById('progressLabel').textContent = 'Mencoba ulang file yang gagal...';
+        document.getElementById('btnDownloadOffline').innerHTML = '<span>⏳</span> Sedang mengunduh...';
+        document.getElementById('btnDownloadOffline').style.borderColor = 'rgba(255,255,255,0.18)';
+        document.getElementById('btnDownloadOffline').style.color = '#e2e8f0';
+
+        if (!sendToSW({ action: 'PRECACHE_RETRY', assets: lastFailedUrls })) {
+          isDownloading = false;
+          alert('Service Worker belum siap. Muat ulang halaman dan coba lagi.');
         }
-        alert('Fitur offline siap saat halaman dibuka melalui server web / HTTPS (GitHub Pages).');
         return;
       }
+
+      // Unduh semua aset
+      isDownloading = true;
       document.getElementById('progressBox').style.display = 'block';
+      document.getElementById('progressBar').style.background = 'linear-gradient(90deg, #10b981, #06b6d4)';
+      document.getElementById('progressBar').style.width = '0%';
       document.getElementById('progressLabel').textContent = 'Memulai pengunduhan...';
-      navigator.serviceWorker.controller.postMessage({
-        action: 'PRECACHE_ALL',
-        assets: ALL_ASSETS
-      });
+      document.getElementById('btnDownloadOffline').innerHTML = '<span>⏳</span> Sedang mengunduh...';
+
+      if (!sendToSW({ action: 'PRECACHE_ALL', assets: ALL_ASSETS })) {
+        isDownloading = false;
+        alert('Fitur offline siap saat halaman dibuka melalui server web / HTTPS (GitHub Pages).');
+      }
     });
 
     // Deteksi Status Jaringan
