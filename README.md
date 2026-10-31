@@ -8,9 +8,15 @@ TK PERTIWI KOTA MEDAN
 ## 📱 Cara Memainkan di HP (Android & iOS)
 
 ### 1. Membuka di Browser HP
-1. Buka tautan GitHub Pages dari repository ini di browser HP Anda (Google Chrome / Safari).
-2. Tekan tombol **"🎮 Mainkan Sekarang"**.
-3. **Posisikan HP dalam mode Landscape (Mendatar)** agar tampilan penuh dan interaktif.
+1. **Tautan Resmi Game:** Buka link berikut di browser HP Anda (Google Chrome di Android atau Safari di iPhone):
+   👉 **`https://shinfort.github.io/Petualangan-Yaya-dan-Caca/`**  
+   *(Jika link belum aktif, aktifkan terlebih dahulu di repositori GitHub lewat menu **Settings > Pages > Branch: main > Save**).*
+2. **Masuk ke Game:** Pada menu utama beranda, tekan tombol hijau **"🎮 Mainkan Sekarang"**.
+3. **Posisikan Layar Mendatar (Landscape):**
+   * Aktifkan fitur **Rotasi Layar Otomatis (Auto-Rotate)** pada bar notifikasi HP Anda.
+   * Miringkan HP ke posisi mendatar/tidur (*landscape*) agar seluruh slide dan tombol interaktif memenuhi layar.
+4. **Mengaktifkan Suara / Dubbing:**
+   * Pada browser HP, ketuk layar game atau tombol play sekali untuk mengizinkan pemutaran audio narasi Yaya dan Caca secara lancar.
 
 ### 2. Memasang Aplikasi ke Layar Utama (PWA / Tanpa Jaringan)
 1. Buka menu browser (ikon titik tiga di Chrome atau ikon Bagikan di Safari).
