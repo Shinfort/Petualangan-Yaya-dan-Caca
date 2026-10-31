@@ -18,11 +18,28 @@ TK PERTIWI KOTA MEDAN
 4. **Mengaktifkan Suara / Dubbing:**
    * Pada browser HP, ketuk layar game atau tombol play sekali untuk mengizinkan pemutaran audio narasi Yaya dan Caca secara lancar.
 
-### 2. Memasang Aplikasi ke Layar Utama (PWA / Tanpa Jaringan)
-1. Buka menu browser (ikon titik tiga di Chrome atau ikon Bagikan di Safari).
-2. Pilih **"Tambahkan ke Layar Utama"** atau **"Install Aplikasi"**.
-3. Ikon game **Petualangan Yaya & Caca** akan muncul di layar utama HP Anda.
-4. Game dapat dimainkan kapan saja secara langsung tanpa terganggu koneksi internet!
+### 2. Memasang Aplikasi ke Layar Utama HP (PWA / Tanpa Jaringan)
+
+Dengan cara ini, game akan menjadi seperti aplikasi mandiri di HP Anda — tanpa perlu download dari Play Store / App Store.
+
+**Untuk HP Android (Google Chrome):**
+1. Buka link `https://shinfort.github.io/Petualangan-Yaya-dan-Caca/` di **Google Chrome**.
+2. Tunggu hingga halaman beranda game selesai dimuat.
+3. Ketuk ikon **⋮ (titik tiga)** di pojok kanan atas Chrome.
+4. Pilih **"Tambahkan ke layar utama"** atau **"Install aplikasi"**.
+5. Ketuk **"Tambahkan"** pada dialog konfirmasi yang muncul.
+6. Ikon 🎮 **Yaya & Caca** akan muncul di layar utama HP Anda, bisa dibuka seperti aplikasi biasa.
+
+**Untuk iPhone / iPad (Safari):**
+1. Buka link `https://shinfort.github.io/Petualangan-Yaya-dan-Caca/` di **Safari** (bukan Chrome).
+2. Ketuk ikon **Bagikan** (⬆️ kotak dengan panah ke atas) di bagian bawah layar.
+3. Gulir ke bawah, lalu pilih **"Tambahkan ke Layar Utama"**.
+4. Ketuk **"Tambahkan"** di pojok kanan atas.
+5. Ikon game akan muncul di layar utama iPhone/iPad Anda.
+
+**Setelah terpasang:**
+* Buka aplikasi game dari layar utama → tekan **"📥 Unduh Mode Offline Lengkap"** sekali saja saat terhubung Wi-Fi.
+* Setelah unduhan selesai 100%, game dapat dimainkan **kapan saja tanpa kuota internet** — bahkan dalam Mode Pesawat!
 
 ---
 
