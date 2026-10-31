@@ -68,6 +68,20 @@ self.addEventListener('fetch', (event) => {
 
       return fetch(req).then((networkResponse) => {
         if (!networkResponse || networkResponse.status !== 200 || networkResponse.type === 'opaque') {
+          // Fallback cerdas: Jika ada request gambar ke story_content/ yang 404, cari di mobile/
+          if (networkResponse && networkResponse.status === 404 && req.url.includes('/story_content/') && /\.(gif|png|jpg)$/i.test(req.url)) {
+            const fallbackUrl = req.url.replace('/story_content/', '/mobile/');
+            return caches.match(fallbackUrl).then((fbCached) => {
+              if (fbCached) return fbCached;
+              return fetch(fallbackUrl).then((fbNet) => {
+                if (fbNet && fbNet.status === 200) {
+                  const fbClone = fbNet.clone();
+                  caches.open(CACHE_NAME).then((cache) => cache.put(req, fbClone));
+                }
+                return fbNet;
+              });
+            });
+          }
           return networkResponse;
         }
 
@@ -81,7 +95,7 @@ self.addEventListener('fetch', (event) => {
       }).catch(() => {
         // Jika offline dan aset belum ada di cache
         if (req.headers.get('accept') && req.headers.get('accept').includes('text/html')) {
-          return caches.match('./story.html') || caches.match('./index.html');
+          return caches.match('./story.html').then((r) => r || caches.match('./index.html'));
         }
       });
     })
@@ -132,7 +146,7 @@ self.addEventListener('message', async (event) => {
       const results = await Promise.allSettled(
         batch.map(async (url) => {
           try {
-            const match = await cache.match(url);
+            const match = (await cache.match(url)) || (await cache.match('./' + url));
             if (match) {
               return { url, status: 'cached' };
             }
@@ -202,7 +216,7 @@ self.addEventListener('message', async (event) => {
 
     for (const url of assets) {
       try {
-        const match = await cache.match(url);
+        const match = (await cache.match(url)) || (await cache.match('./' + url));
         if (!match) {
           const res = await fetchWithRetry(url, 180000, 3);
           if (res) {
