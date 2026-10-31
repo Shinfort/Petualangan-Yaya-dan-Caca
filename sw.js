@@ -1,4 +1,4 @@
-const CACHE_NAME = 'yaya-caca-v2';
+const CACHE_NAME = 'yaya-caca-v3';
 
 // File inti yang langsung disimpan saat Service Worker terpasang
 const CORE_ASSETS = [
